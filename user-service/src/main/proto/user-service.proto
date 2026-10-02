@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "userservice";
+
+service UserProfileService {
+
+  rpc CreateUserProfile(CreateUserProfileRequest)
+      returns (CreateUserProfileResponse);
+
+  rpc GetUserProfile(GetUserProfileRequest)
+      returns (UserProfile);
+
+  rpc DeleteUserProfile(DeleteUserProfileRequest)
+      returns (DeleteUserProfileResponse);
+}
+
+message CreateUserProfileRequest {
+  string auth_user_id = 1;
+  string name = 2;
+  string timezone = 3;
+}
+
+message CreateUserProfileResponse {
+  string user_id = 1;
+  string auth_user_id = 2;
+  string name = 3;
+  string timezone = 4;
+}
+
+message GetUserProfileRequest {
+  string auth_user_id = 1;
+}
+
+message UserProfile {
+  string user_id = 1;
+  string auth_user_id = 2;
+  string name = 3;
+  string avatar_url = 4;
+  string timezone = 5;
+}
+
+message DeleteUserProfileRequest {
+  string auth_user_id = 1;
+}
+
+message DeleteUserProfileResponse {
+  bool deleted = 1;
+}
