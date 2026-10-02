@@ -1,0 +1,2 @@
+GET http://localhost:4000/api/v1/users/18ab8cf5-77e0-4caa-9850-6dae493f78a7
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxOGFiOGNmNS03N2UwLTRjYWEtOTg1MC02ZGFlNDkzZjc4YTciLCJlbWFpbCI6InRodXNpdGhhQGV4YW1wbGUuY29tIiwiaWF0IjoxNzkwOTE3NzM0LCJleHAiOjE3OTA5MTg2MzR9.yZv7XkMOhQiI55-VivWgXvaefMsa1iHVKXsIqWIIgNg

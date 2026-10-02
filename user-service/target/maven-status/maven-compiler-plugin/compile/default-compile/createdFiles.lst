@@ -11,6 +11,7 @@ userservice\UserProfileServiceGrpc$UserProfileServiceImplBase.class
 com\thusithakit\userservice\exception\UserNotFoundException.class
 userservice\UserProfileServiceGrpc$AsyncService.class
 userservice\DeleteUserProfileResponse$1.class
+com\thusithakit\userservice\controller\UserController.class
 userservice\GetUserProfileRequest$1.class
 userservice\DeleteUserProfileResponseOrBuilder.class
 userservice\UserProfileServiceGrpc$3.class
@@ -28,6 +29,7 @@ userservice\CreateUserProfileRequestOrBuilder.class
 userservice\DeleteUserProfileRequest$Builder.class
 userservice\UserProfileServiceGrpc$MethodHandlers.class
 userservice\UserProfileServiceGrpc$UserProfileServiceBlockingV2Stub.class
+com\thusithakit\userservice\grpc\UserProfileGrpcService.class
 com\thusithakit\userservice\model\User.class
 userservice\CreateUserProfileResponseOrBuilder.class
 userservice\DeleteUserProfileResponse$Builder.class

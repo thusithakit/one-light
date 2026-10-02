@@ -1,0 +1,10 @@
+### POST request to create a patient
+POST http://localhost:4001/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "email": "thusitha@example.com",
+  "password": "Password123!",
+  "name": "Thusitha",
+  "timezone": "Asia/Colombo"
+}

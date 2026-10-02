@@ -1,7 +1,9 @@
+D:\java\one-light\user-service\src\main\java\com\thusithakit\userservice\controller\UserController.java
 D:\java\one-light\user-service\src\main\java\com\thusithakit\userservice\dto\PublicUserResponseDTO.java
 D:\java\one-light\user-service\src\main\java\com\thusithakit\userservice\dto\UpdateUserRequestDTO.java
 D:\java\one-light\user-service\src\main\java\com\thusithakit\userservice\dto\UserResponseDTO.java
 D:\java\one-light\user-service\src\main\java\com\thusithakit\userservice\exception\UserNotFoundException.java
+D:\java\one-light\user-service\src\main\java\com\thusithakit\userservice\grpc\UserProfileGrpcService.java
 D:\java\one-light\user-service\src\main\java\com\thusithakit\userservice\mapper\UserMapper.java
 D:\java\one-light\user-service\src\main\java\com\thusithakit\userservice\model\User.java
 D:\java\one-light\user-service\src\main\java\com\thusithakit\userservice\repository\UserRepository.java
