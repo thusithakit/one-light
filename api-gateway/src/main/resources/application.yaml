@@ -17,6 +17,8 @@ spring:
               uri: http://user-service:4000
               predicates:
                 - Path=/api/v1/users/**
+              filters:
+                - JwtValidation
 
 server:
   port: 8080
