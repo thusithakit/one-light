@@ -1,9 +1,6 @@
 package com.thusithakit.authservice.service;
 
-import com.thusithakit.authservice.dto.LoginRequestDTO;
-import com.thusithakit.authservice.dto.LoginResponseDTO;
-import com.thusithakit.authservice.dto.RegisterRequestDTO;
-import com.thusithakit.authservice.dto.RegisterResponseDTO;
+import com.thusithakit.authservice.dto.*;
 import com.thusithakit.authservice.grpc.UserServiceGrpcClient;
 import com.thusithakit.authservice.model.AuthUser;
 import com.thusithakit.authservice.repository.AuthUserRepository;
@@ -11,6 +8,8 @@ import com.thusithakit.authservice.security.JwtService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
 
 @Service
 public class AuthService {
@@ -106,5 +105,31 @@ public class AuthService {
                 authUser.getEmail(),
                 token
         );
+    }
+
+    public TokenValidationResponse validateToken(String token) {
+
+        try {
+
+            var claims = jwtService.validateToken(token);
+
+            UUID userId = UUID.fromString(claims.getSubject());
+
+            String email = claims.get("email", String.class);
+
+            return new TokenValidationResponse(
+                    true,
+                    userId,
+                    email
+            );
+
+        } catch (Exception e) {
+
+            return new TokenValidationResponse(
+                    false,
+                    null,
+                    null
+            );
+        }
     }
 }

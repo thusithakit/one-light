@@ -1,5 +1,6 @@
 package com.thusithakit.authservice.security;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,7 +39,23 @@ public class JwtService {
             .claim("email", email)
             .issuedAt(now)
             .expiration(expiration)
-            .signWith(secretKey)
+            .signWith(secretKey, Jwts.SIG.HS256)
             .compact();
+    }
+
+    public Claims validateToken(String token) {
+
+        return Jwts.parser()
+                .verifyWith(secretKey)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+    }
+
+    public UUID getUserId(String token) {
+
+        Claims claims = validateToken(token);
+
+        return UUID.fromString(claims.getSubject());
     }
 }
