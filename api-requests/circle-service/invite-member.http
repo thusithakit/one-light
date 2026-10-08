@@ -1,0 +1,7 @@
+POST http://localhost:8080/api/v1/circles/c54bd8cb-19bf-472e-9e3b-723b7bcaa5e8/invitations
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "userId": "846de2f9-b32e-4f4c-9f14-95a975fb45f5"
+}

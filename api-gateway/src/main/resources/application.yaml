@@ -39,6 +39,13 @@ spring:
               filters:
                 - JwtValidation
 
+            - id: message-service
+              uri: http://message-service:4004
+              predicates:
+                - Path=/api/v1/messages/**
+              filters:
+                - JwtValidation
+
 server:
   port: 8080
 

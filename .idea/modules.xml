@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/circle-service/circle-service.iml" filepath="$PROJECT_DIR$/circle-service/circle-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/device-service/device-service.iml" filepath="$PROJECT_DIR$/device-service/device-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/message-service/message-service.iml" filepath="$PROJECT_DIR$/message-service/message-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/one-light.iml" filepath="$PROJECT_DIR$/.idea/one-light.iml" />
     </modules>
   </component>

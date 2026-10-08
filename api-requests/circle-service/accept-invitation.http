@@ -1,0 +1,2 @@
+POST http://localhost:8080/api/v1/circles/invitations/ee550cb4-d42f-4d7f-a32c-05a8c0a6f4dd/accept
+Authorization: Bearer {{token}}

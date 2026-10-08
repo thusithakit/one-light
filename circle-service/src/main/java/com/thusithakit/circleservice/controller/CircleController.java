@@ -3,6 +3,7 @@ package com.thusithakit.circleservice.controller;
 import com.thusithakit.circleservice.dto.*;
 import com.thusithakit.circleservice.service.CircleManagementService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,144 +13,228 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/circles")
+@RequiredArgsConstructor
 public class CircleController {
 
-  private final CircleManagementService circleService;
+  private final CircleManagementService circleManagementService;
 
-  public CircleController(
-      CircleManagementService circleService
-  ) {
-    this.circleService = circleService;
-  }
+
+  // =========================================================
+  // CIRCLES
+  // =========================================================
 
   @PostMapping
-  public ResponseEntity<CircleResponseDTO> createCircle(
+  public CircleResponseDTO createCircle(
       @RequestHeader("X-User-Id") UUID userId,
       @Valid @RequestBody CreateCircleRequestDTO request
   ) {
-    return ResponseEntity
-        .status(HttpStatus.CREATED)
-        .body(circleService.createCircle(userId, request));
-  }
 
-  @GetMapping
-  public ResponseEntity<List<CircleResponseDTO>> getMyCircles(
-      @RequestHeader("X-User-Id") UUID userId
-  ) {
-    return ResponseEntity.ok(
-        circleService.getMyCircles(userId)
+    return circleManagementService.createCircle(
+        userId,
+        request
     );
   }
 
+
+  /**
+   * Returns circles where the authenticated user is a member.
+   */
+  @GetMapping
+  public List<MyCircleResponseDTO> getMyCircles(
+      @RequestHeader("X-User-Id") UUID userId
+  ) {
+
+    return circleManagementService.getMyCircles(
+        userId
+    );
+  }
+
+
+  /**
+   * Returns devices accessible to the authenticated user
+   * through their circles.
+   */
+  @GetMapping("/my-devices")
+  public List<MyDeviceResponseDTO> getMyDevices(
+      @RequestHeader("X-User-Id") UUID userId
+  ) {
+
+    return circleManagementService.getMyDevices(
+        userId
+    );
+  }
+
+
+  // =========================================================
+  // INVITATIONS
+  // =========================================================
+
+  /**
+   * Get pending invitations for the authenticated user.
+   */
+  @GetMapping("/invitations")
+  public List<InvitationResponseDTO> getMyPendingInvitations(
+      @RequestHeader("X-User-Id") UUID userId
+  ) {
+
+    return circleManagementService
+        .getMyPendingInvitations(userId);
+  }
+
+
+  /**
+   * Accept invitation.
+   */
+  @PostMapping("/invitations/{invitationId}/accept")
+  public InvitationResponseDTO acceptInvitation(
+      @RequestHeader("X-User-Id") UUID userId,
+      @PathVariable UUID invitationId
+  ) {
+
+    return circleManagementService
+        .acceptInvitation(
+            userId,
+            invitationId
+        );
+  }
+
+
+  /**
+   * Decline invitation.
+   */
+  @PostMapping("/invitations/{invitationId}/decline")
+  public InvitationResponseDTO declineInvitation(
+      @RequestHeader("X-User-Id") UUID userId,
+      @PathVariable UUID invitationId
+  ) {
+
+    return circleManagementService
+        .declineInvitation(
+            userId,
+            invitationId
+        );
+  }
+
+
+  // =========================================================
+  // MEMBERS
+  // =========================================================
+
   @GetMapping("/{circleId}/members")
-  public ResponseEntity<List<CircleMemberResponseDTO>> getMembers(
+  public List<CircleMemberResponseDTO> getMembers(
       @RequestHeader("X-User-Id") UUID userId,
       @PathVariable UUID circleId
   ) {
-    return ResponseEntity.ok(
-        circleService.getMembers(userId, circleId)
+
+    return circleManagementService.getMembers(
+        userId,
+        circleId
     );
   }
 
+
   @PostMapping("/{circleId}/invitations")
-  public ResponseEntity<InvitationResponseDTO> inviteMember(
+  public InvitationResponseDTO inviteMember(
       @RequestHeader("X-User-Id") UUID userId,
       @PathVariable UUID circleId,
       @Valid @RequestBody InviteMemberRequestDTO request
   ) {
-    return ResponseEntity
-        .status(HttpStatus.CREATED)
-        .body(circleService.inviteMember(
-            userId,
-            circleId,
-            request
-        ));
+
+    return circleManagementService.inviteMember(
+        userId,
+        circleId,
+        request
+    );
   }
 
-  @DeleteMapping("/{circleId}/members/{memberUserId}")
-  public ResponseEntity<Void> removeMember(
+
+  @DeleteMapping(
+      "/{circleId}/members/{memberUserId}"
+  )
+  public void removeMember(
       @RequestHeader("X-User-Id") UUID userId,
       @PathVariable UUID circleId,
       @PathVariable UUID memberUserId
   ) {
-    circleService.removeMember(
+
+    circleManagementService.removeMember(
         userId,
         circleId,
         memberUserId
     );
-
-    return ResponseEntity.noContent().build();
   }
 
-  @PatchMapping("/{circleId}/members/{memberUserId}/permissions")
-  public ResponseEntity<Void> updateMemberPermission(
+
+  @PatchMapping(
+      "/{circleId}/members/{memberUserId}/permissions"
+  )
+  public CircleMemberResponseDTO updateMemberPermission(
       @RequestHeader("X-User-Id") UUID userId,
       @PathVariable UUID circleId,
       @PathVariable UUID memberUserId,
-      @Valid @RequestBody UpdateMemberPermissionRequest request
+      @Valid @RequestBody
+      UpdateMemberPermissionRequest request
   ) {
-    circleService.updateMemberPermission(
-        userId,
-        circleId,
-        memberUserId,
-        request
-    );
 
-    return ResponseEntity.noContent().build();
-  }
-
-  @PostMapping("/invitations/{invitationId}/accept")
-  public ResponseEntity<Void> acceptInvitation(
-      @RequestHeader("X-User-Id") UUID userId,
-      @PathVariable UUID invitationId
-  ) {
-    circleService.acceptInvitation(
-        userId,
-        invitationId
-    );
-
-    return ResponseEntity.noContent().build();
-  }
-  @PostMapping("/{circleId}/devices")
-  public ResponseEntity<CircleDeviceResponseDTO> addDevice(
-      @RequestHeader("X-User-Id") UUID userId,
-      @PathVariable UUID circleId,
-      @Valid @RequestBody AddDeviceToCircleRequestDTO request
-  ) {
-    return ResponseEntity
-        .status(HttpStatus.CREATED)
-        .body(circleService.addDeviceToCircle(
+    return circleManagementService
+        .updateMemberPermission(
             userId,
             circleId,
+            memberUserId,
             request
-        ));
+        );
   }
 
+
+  // =========================================================
+  // DEVICES
+  // =========================================================
+
   @GetMapping("/{circleId}/devices")
-  public ResponseEntity<List<CircleDeviceResponseDTO>> getDevices(
+  public List<CircleDeviceResponseDTO> getCircleDevices(
       @RequestHeader("X-User-Id") UUID userId,
       @PathVariable UUID circleId
   ) {
-    return ResponseEntity.ok(
-        circleService.getCircleDevices(
+
+    return circleManagementService
+        .getCircleDevices(
             userId,
             circleId
-        )
-    );
+        );
   }
 
-  @DeleteMapping("/{circleId}/devices/{deviceId}")
-  public ResponseEntity<Void> removeDevice(
+
+  @PostMapping("/{circleId}/devices")
+  public CircleDeviceResponseDTO addDeviceToCircle(
+      @RequestHeader("X-User-Id") UUID userId,
+      @PathVariable UUID circleId,
+      @Valid @RequestBody
+      AddDeviceToCircleRequestDTO request
+  ) {
+
+    return circleManagementService
+        .addDeviceToCircle(
+            userId,
+            circleId,
+            request
+        );
+  }
+
+
+  @DeleteMapping(
+      "/{circleId}/devices/{deviceId}"
+  )
+  public void removeDeviceFromCircle(
       @RequestHeader("X-User-Id") UUID userId,
       @PathVariable UUID circleId,
       @PathVariable UUID deviceId
   ) {
-    circleService.removeDeviceFromCircle(
-        userId,
-        circleId,
-        deviceId
-    );
 
-    return ResponseEntity.noContent().build();
+    circleManagementService
+        .removeDeviceFromCircle(
+            userId,
+            circleId,
+            deviceId
+        );
   }
 }

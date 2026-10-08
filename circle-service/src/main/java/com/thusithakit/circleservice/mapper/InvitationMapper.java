@@ -5,15 +5,19 @@ import com.thusithakit.circleservice.model.CircleInvitation;
 
 public class InvitationMapper {
   public static InvitationResponseDTO toInvitationResponse(
-      CircleInvitation invitation
+      CircleInvitation invitation,
+      String circleName
   ) {
+
     return new InvitationResponseDTO(
         invitation.getId(),
         invitation.getCircleId(),
+        circleName,
         invitation.getInvitedUserId(),
         invitation.getInvitedBy(),
         invitation.getStatus(),
-        invitation.getExpiresAt()
+        invitation.getExpiresAt(),
+        invitation.getCreatedAt()
     );
   }
 }

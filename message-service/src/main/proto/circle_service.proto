@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+
+option java_multiple_files = true;
+option java_package = "messageservice";
+
+service CircleAuthorizationService {
+
+  rpc CanUserSendMessage(
+      CanUserSendMessageRequest
+      ) returns (
+      CanUserSendMessageResponse
+      );
+}
+
+message CanUserSendMessageRequest {
+
+  string user_id = 1;
+
+  string device_id = 2;
+}
+
+message CanUserSendMessageResponse {
+
+  bool allowed = 1;
+}

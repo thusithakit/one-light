@@ -3,5 +3,5 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "name": "Family"
+  "name": "Us"
 }

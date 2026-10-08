@@ -1,0 +1,7 @@
+POST http://localhost:8080/api/v1/circles/c54bd8cb-19bf-472e-9e3b-723b7bcaa5e8/devices
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "deviceId": "b2c3d4e5-f6a7-4890-b123-456789abcdef"
+}

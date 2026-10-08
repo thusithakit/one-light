@@ -8,9 +8,11 @@ import java.util.UUID;
 public record InvitationResponseDTO(
     UUID id,
     UUID circleId,
+    String circleName,
     UUID invitedUserId,
     UUID invitedBy,
     InvitationStatus status,
-    Instant expiresAt
+    Instant expiresAt,
+    Instant createdAt
 ) {
 }

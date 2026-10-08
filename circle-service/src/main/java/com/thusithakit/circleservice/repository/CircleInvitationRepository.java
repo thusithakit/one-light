@@ -9,15 +9,21 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface CircleInvitationRepository
-        extends JpaRepository<CircleInvitation, UUID> {
+    extends JpaRepository<CircleInvitation, UUID> {
 
-    List<CircleInvitation> findAllByInvitedUserIdAndStatus(
-            UUID invitedUserId,
-            InvitationStatus status
+    List<CircleInvitation> findAllByInvitedUserIdAndStatusOrderByCreatedAtDesc(
+        UUID invitedUserId,
+        InvitationStatus status
     );
 
     Optional<CircleInvitation> findByIdAndInvitedUserId(
-            UUID id,
-            UUID invitedUserId
+        UUID id,
+        UUID invitedUserId
+    );
+
+    boolean existsByCircleIdAndInvitedUserIdAndStatus(
+        UUID circleId,
+        UUID invitedUserId,
+        InvitationStatus status
     );
 }

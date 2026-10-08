@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "deviceservice";
+
+service DeviceDetailsService {
+
+  rpc GetDeviceDetails(GetDeviceDetailsRequest)
+      returns (GetDeviceDetailsResponse);
+}
+
+message GetDeviceDetailsRequest {
+  string device_id = 1;
+}
+
+message GetDeviceDetailsResponse {
+  string device_id = 1;
+  string name = 2;
+  string status = 3;
+  string firmware_version = 4;
+  string last_seen_at = 5;
+}
