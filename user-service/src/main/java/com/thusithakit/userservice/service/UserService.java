@@ -79,4 +79,15 @@ public class UserService {
 
         return UserMapper.toResponse(user);
     }
+
+    public UserResponseDTO myInfo(
+            UUID authUserId
+    ){
+        User user = userRepository
+                .findByAuthUserId(authUserId)
+                .orElseThrow(() ->
+                        new RuntimeException("User profile not found")
+                );
+        return UserMapper.toResponse(user);
+    }
 }

@@ -1,0 +1,9 @@
+PUT http://localhost:8080/api/v1/users/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxOGFiOGNmNS03N2UwLTRjYWEtOTg1MC02ZGFlNDkzZjc4YTciLCJlbWFpbCI6InRodXNpdGhhQGV4YW1wbGUuY29tIiwiaWF0IjoxNzkxMzQyOTYzLCJleHAiOjE3OTEzNDM4NjN9.DYjvA781-kQs890szxuCr2hTsJv2U2HkVsa4f6DywDA
+Content-Type: application/json
+
+{
+  "name": "Thusitha Kithuldora",
+  "avatarUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Spider-Man.jpg/1280px-Spider-Man.jpg?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail",
+  "timezone": "Asia/Colombo"
+}

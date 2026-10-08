@@ -18,17 +18,19 @@ public class AuthController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public RegisterResponseDTO register(
+    public ResponseEntity<RegisterResponseDTO> register(
             @Valid @RequestBody RegisterRequestDTO request
     ) {
-        return authService.register(request);
+        RegisterResponseDTO response = authService.register(request);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/login")
-    public LoginResponseDTO login(
+    public ResponseEntity<LoginResponseDTO> login(
             @Valid @RequestBody LoginRequestDTO request
     ) {
-        return authService.login(request);
+        LoginResponseDTO response = authService.login(request);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/validate")

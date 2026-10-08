@@ -20,6 +20,18 @@ spring:
               filters:
                 - JwtValidation
 
+            - id: device-provisioning
+              uri: http://device-service:4002
+              predicates:
+                - Path=/api/v1/devices/provision
+
+            - id: device-service
+              uri: http://device-service:4002
+              predicates:
+                - Path=/api/v1/devices/**
+              filters:
+                - JwtValidation
+
 server:
   port: 8080
 
