@@ -1,0 +1,7 @@
+POST http://localhost:8080/api/v1/circles
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Family"
+}

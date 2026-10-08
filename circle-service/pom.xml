@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.thusithakit</groupId>
-    <artifactId>device-service</artifactId>
+    <artifactId>circle-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>device-service</name>
-    <description>device-service</description>
+    <name>circle-service</name>
+    <description>circle-service</description>
     <url/>
     <licenses>
         <license/>
@@ -101,7 +101,6 @@
             <artifactId>spring-boot-starter-webmvc-test</artifactId>
             <scope>test</scope>
         </dependency>
-
         <!-- ==================== -->
         <!-- gRPC                  -->
         <!-- ==================== -->

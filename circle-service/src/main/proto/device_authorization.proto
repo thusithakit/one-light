@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "deviceservice";
+
+service DeviceAuthorizationService {
+
+  rpc VerifyDeviceOwnership(VerifyDeviceOwnershipRequest)
+      returns (VerifyDeviceOwnershipResponse);
+}
+
+message VerifyDeviceOwnershipRequest {
+  string user_id = 1;
+  string device_id = 2;
+}
+
+message VerifyDeviceOwnershipResponse {
+  bool owned = 1;
+}

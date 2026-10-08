@@ -32,6 +32,13 @@ spring:
               filters:
                 - JwtValidation
 
+            - id: circle-service
+              uri: http://circle-service:4003
+              predicates:
+                - Path=/api/v1/circles/**
+              filters:
+                - JwtValidation
+
 server:
   port: 8080
 

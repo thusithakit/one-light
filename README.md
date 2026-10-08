@@ -1,6 +1,6 @@
 # OneLight Backend
 
-Backend services for **OneLight** — a connected smart light and notification device that allows users to send messages to another user's physical light.
+Backend services for **OneLight** - a connected smart light and notification device that allows users to send messages to another user's physical light.
 
 OneLight combines a modern **microservices backend**, real-time communication, and IoT hardware to create a physical notification experience. The device normally displays the current time and switches to a notification state when a message is received.
 

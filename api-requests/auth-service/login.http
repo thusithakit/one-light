@@ -5,3 +5,6 @@ Content-Type: application/json
   "email": "thusitha@example.com",
   "password": "Password123!"
 }
+> {%
+    client.global.set("token", response.body.accessToken);
+%}
