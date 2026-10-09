@@ -4,5 +4,5 @@ Content-Type: application/json
 
 {
   "deviceId": "b2c3d4e5-f6a7-4890-b123-456789abcdef",
-  "content": "Hiii!!"
+  "content": "Kafka check 2!!"
 }

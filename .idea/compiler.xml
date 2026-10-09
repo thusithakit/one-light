@@ -9,13 +9,14 @@
         <outputRelativeToContentRoot value="true" />
         <module name="api-gateway" />
       </profile>
-      <profile name="Annotation profile for message-service" enabled="true">
+      <profile name="Annotation profile for delivery-service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar" />
         </processorPath>
+        <module name="delivery-service" />
         <module name="auth-service" />
         <module name="circle-service" />
         <module name="user-service" />
@@ -29,6 +30,7 @@
       <module name="api-gateway" options="-parameters" />
       <module name="auth-service" options="-parameters" />
       <module name="circle-service" options="-parameters" />
+      <module name="delivery-service" options="-parameters" />
       <module name="device-service" options="-parameters" />
       <module name="message-service" options="-parameters" />
       <module name="user-service" options="-parameters" />
