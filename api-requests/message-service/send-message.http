@@ -3,6 +3,6 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "deviceId": "b2c3d4e5-f6a7-4890-b123-456789abcdef",
-  "content": "Kafka check 2!!"
+  "deviceId": "8a6ee7e7-f0c1-4630-bc94-0bab0382fecf",
+  "content": "Hiii, This is a long message to check if the animation is working!!"
 }

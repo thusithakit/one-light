@@ -36,65 +36,58 @@ public class PairingService {
      */
     @Transactional
     public CreatePairingSessionResponseDTO createPairingSession(
-            CreatePairingSessionRequestDTO request
+        CreatePairingSessionRequestDTO request
     ) {
+        Device device = deviceRepository
+            .findByDeviceIdentifier(request.deviceIdentifier())
+            .orElseGet(() -> {
+                Device newDevice = Device.builder()
+                    .deviceIdentifier(request.deviceIdentifier())
+                    .name("OneLight")
+                    .status(DeviceStatus.UNPAIRED)
+                    .firmwareVersion(request.firmwareVersion())
+                    .build();
 
-        Device device =
-                deviceRepository
-                        .findByDeviceIdentifier(
-                                request.deviceIdentifier()
-                        )
-                        .orElseGet(() -> {
+                return deviceRepository.save(newDevice);
+            });
 
-                            Device newDevice =
-                                    Device.builder()
-                                            .deviceIdentifier(
-                                                    request.deviceIdentifier()
-                                            )
-                                            .name("OneLight")
-                                            .status(
-                                                    DeviceStatus.UNPAIRED
-                                            )
-                                            .firmwareVersion(
-                                                    request.firmwareVersion()
-                                            )
-                                            .build();
+        device.setFirmwareVersion(request.firmwareVersion());
+        deviceRepository.save(device);
 
-                            return deviceRepository.save(newDevice);
-                        });
-
+        // Already paired: return the existing device ID.
         if (device.getOwnerId() != null) {
-            throw new IllegalArgumentException(
-                    "Device is already paired"
+            return new CreatePairingSessionResponseDTO(
+                device.getId(),
+                null,
+                null,
+                true
             );
         }
 
-        device.setFirmwareVersion(
-                request.firmwareVersion()
-        );
+        // Reuse an active pairing session if one exists.
+        Instant now = Instant.now();
 
-        deviceRepository.save(device);
+        PairingSession session = pairingSessionRepository
+            .findFirstByDeviceIdAndUsedFalseAndExpiresAtAfter(
+                device.getId(),
+                now
+            )
+            .orElseGet(() -> {
+                PairingSession newSession = PairingSession.builder()
+                    .deviceId(device.getId())
+                    .code(generateCode())
+                    .expiresAt(now.plus(Duration.ofMinutes(10)))
+                    .used(false)
+                    .build();
 
-        String code = generateCode();
-
-        PairingSession session =
-                PairingSession.builder()
-                        .deviceId(device.getId())
-                        .code(code)
-                        .expiresAt(
-                                Instant.now()
-                                        .plus(Duration.ofMinutes(10))
-                        )
-                        .used(false)
-                        .build();
-
-        PairingSession savedSession =
-                pairingSessionRepository.save(session);
+                return pairingSessionRepository.save(newSession);
+            });
 
         return new CreatePairingSessionResponseDTO(
-                device.getId(),
-                savedSession.getCode(),
-                savedSession.getExpiresAt()
+            device.getId(),
+            session.getCode(),
+            session.getExpiresAt(),
+            false
         );
     }
 
