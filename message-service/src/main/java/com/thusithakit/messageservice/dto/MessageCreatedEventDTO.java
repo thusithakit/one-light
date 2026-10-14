@@ -12,6 +12,8 @@ public record MessageCreatedEventDTO(
 
     String content,
 
-    Instant createdAt
+    Instant createdAt,
+
+    String senderName
 ) {
 }

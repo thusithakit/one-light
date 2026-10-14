@@ -47,3 +47,13 @@ message DeleteUserProfileRequest {
 message DeleteUserProfileResponse {
   bool deleted = 1;
 }
+
+service UserLookupService {
+  rpc GetUserProfile(GetUserProfileRequest)
+      returns (GetUserProfileResponse);
+}
+
+message GetUserProfileResponse {
+  string user_id = 1;
+  string display_name = 2;
+}

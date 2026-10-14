@@ -41,6 +41,11 @@ public class DeviceDeliveryService {
       return;
     }
 
+    log.info(
+        "Message Event: {}",
+        event
+    );
+
     try {
       delivery.setStatus("PENDING");
       delivery.setFailureReason(null);

@@ -54,6 +54,9 @@ public class Message {
   @Column(name = "delivered_at")
   private Instant deliveredAt;
 
+  @Column(name = "sender_name", length = 120)
+  private String senderName;
+
   @PrePersist
   protected void onCreate() {
     createdAt = Instant.now();

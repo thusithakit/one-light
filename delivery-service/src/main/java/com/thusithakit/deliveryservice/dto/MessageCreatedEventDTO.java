@@ -7,6 +7,7 @@ public record MessageCreatedEventDTO(
     String deviceId,
     String senderUserId,
     String content,
-    Instant createdAt
+    Instant createdAt,
+    String senderName
 ) {
 }

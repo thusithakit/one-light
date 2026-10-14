@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "userservice";
+
+
+service UserLookupService {
+  rpc GetUserProfile(GetUserProfileRequest)
+      returns (GetUserProfileResponse);
+}
+
+message GetUserProfileRequest {
+  string auth_user_id = 1;
+}
+
+message GetUserProfileResponse {
+  string user_id = 1;
+  string display_name = 2;
+}

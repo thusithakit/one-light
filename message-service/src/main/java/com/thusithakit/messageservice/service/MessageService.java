@@ -5,6 +5,7 @@ import com.thusithakit.messageservice.dto.MessageResponseDTO;
 import com.thusithakit.messageservice.dto.SendMessageRequestDTO;
 import com.thusithakit.messageservice.exception.MessageAccessDeniedException;
 import com.thusithakit.messageservice.grpc.CircleServiceGrpcClient;
+import com.thusithakit.messageservice.grpc.UserProfileClient;
 import com.thusithakit.messageservice.kafka.MessageEventPublisher;
 import com.thusithakit.messageservice.mapper.MessageMapper;
 import com.thusithakit.messageservice.model.Message;
@@ -29,6 +30,8 @@ public class MessageService {
   private final MessageEventPublisher
       messageEventPublisher;
 
+  private final UserProfileClient userProfileClient;
+
   @Transactional
   public MessageResponseDTO sendMessage(
       UUID senderUserId,
@@ -47,12 +50,16 @@ public class MessageService {
       );
     }
 
+    String senderName = userProfileClient
+        .getDisplayName(senderUserId);
+
     Message message =
         Message.builder()
             .deviceId(request.deviceId())
             .senderUserId(senderUserId)
             .content(request.content().trim())
             .status(MessageStatus.PENDING)
+            .senderName(senderName)
             .build();
 
     message =
@@ -64,7 +71,8 @@ public class MessageService {
             message.getDeviceId(),
             message.getSenderUserId(),
             message.getContent(),
-            message.getCreatedAt()
+            message.getCreatedAt(),
+            message.getSenderName()
         );
 
     messageEventPublisher.publish(event);

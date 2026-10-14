@@ -55,6 +55,11 @@ public final class UserService {
   static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_DeleteUserProfileResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_GetUserProfileResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_GetUserProfileResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -75,13 +80,17 @@ public final class UserService {
       "\navatar_url\030\004 \001(\t\022\020\n\010timezone\030\005 \001(\t\"0\n\030D" +
       "eleteUserProfileRequest\022\024\n\014auth_user_id\030" +
       "\001 \001(\t\",\n\031DeleteUserProfileResponse\022\017\n\007de" +
-      "leted\030\001 \001(\0102\344\001\n\022UserProfileService\022J\n\021Cr" +
-      "eateUserProfile\022\031.CreateUserProfileReque" +
-      "st\032\032.CreateUserProfileResponse\0226\n\016GetUse" +
-      "rProfile\022\026.GetUserProfileRequest\032\014.UserP" +
-      "rofile\022J\n\021DeleteUserProfile\022\031.DeleteUser" +
-      "ProfileRequest\032\032.DeleteUserProfileRespon" +
-      "seB\017\n\013userserviceP\001b\006proto3"
+      "leted\030\001 \001(\010\"?\n\026GetUserProfileResponse\022\017\n" +
+      "\007user_id\030\001 \001(\t\022\024\n\014display_name\030\002 \001(\t2\344\001\n" +
+      "\022UserProfileService\022J\n\021CreateUserProfile" +
+      "\022\031.CreateUserProfileRequest\032\032.CreateUser" +
+      "ProfileResponse\0226\n\016GetUserProfile\022\026.GetU" +
+      "serProfileRequest\032\014.UserProfile\022J\n\021Delet" +
+      "eUserProfile\022\031.DeleteUserProfileRequest\032" +
+      "\032.DeleteUserProfileResponse2V\n\021UserLooku" +
+      "pService\022A\n\016GetUserProfile\022\026.GetUserProf" +
+      "ileRequest\032\027.GetUserProfileResponseB\017\n\013u" +
+      "serserviceP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -123,6 +132,12 @@ public final class UserService {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_DeleteUserProfileResponse_descriptor,
         new java.lang.String[] { "Deleted", });
+    internal_static_GetUserProfileResponse_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_GetUserProfileResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_GetUserProfileResponse_descriptor,
+        new java.lang.String[] { "UserId", "DisplayName", });
     descriptor.resolveAllFeaturesImmutable();
   }
 

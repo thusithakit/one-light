@@ -24,7 +24,7 @@ spring:
               uri: http://device-service:4002
               predicates:
                 - Path=/api/v1/devices/{deviceId}/light
-                - Method=GET
+                - Method=GET, PATCH
 
             - id: device-provisioning
               uri: http://device-service:4002

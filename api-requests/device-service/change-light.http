@@ -3,7 +3,5 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "brightness": 1,
-  "on": false,
-  "color": "#ffffff"
+  "on": false
 }

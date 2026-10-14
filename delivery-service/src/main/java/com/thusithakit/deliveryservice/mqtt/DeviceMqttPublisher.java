@@ -71,6 +71,10 @@ public class DeviceMqttPublisher {
       throw new IllegalArgumentException("deviceId must not be blank");
     }
 
+    if (event == null) {
+      throw new IllegalArgumentException("Event must not be null");
+    }
+
     if (event.content() == null || event.content().isBlank()) {
       throw new IllegalArgumentException("Message content must not be blank");
     }
@@ -81,7 +85,23 @@ public class DeviceMqttPublisher {
 
     String topic = "onelight/devices/" + deviceId + "/messages";
 
-    String payload = objectMapper.writeValueAsString(event);
+    // Ensure the ESP32 always receives a usable sender name.
+    String senderName = event.senderName();
+
+    if (senderName == null || senderName.isBlank()) {
+      senderName = "Unknown sender";
+    }
+
+    MessageCreatedEventDTO mqttEvent = new MessageCreatedEventDTO(
+        event.messageId(),
+        deviceId,
+        event.senderUserId(),
+        event.content(),
+        event.createdAt(),
+        senderName
+    );
+
+    String payload = objectMapper.writeValueAsString(mqttEvent);
 
     MqttMessage mqttMessage = new MqttMessage(
         payload.getBytes(StandardCharsets.UTF_8)
@@ -93,9 +113,10 @@ public class DeviceMqttPublisher {
     mqttClient.publish(topic, mqttMessage);
 
     log.info(
-        "Published notification to MQTT topic {} for messageId={}",
+        "Published notification to MQTT topic {} for messageId={}, senderName={}",
         topic,
-        event.messageId()
+        event.messageId(),
+        senderName
     );
   }
 

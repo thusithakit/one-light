@@ -52,7 +52,6 @@ public class LightSettingsService {
 
   @Transactional
   public UpdateResult update(
-      UUID ownerId,
       UUID deviceId,
       LightSettingsRequestDTO request
   ) {
@@ -62,7 +61,7 @@ public class LightSettingsService {
       );
     }
 
-    Device device = deviceRepository.findByIdAndOwnerId(deviceId,ownerId)
+    Device device = deviceRepository.findById(deviceId)
         .orElseThrow(() ->
             new EntityNotFoundException("Device not found"));
 
@@ -74,12 +73,12 @@ public class LightSettingsService {
       settings.setOn(request.on());
     }
 
-    if (request.brightness() != null) {
-      settings.setBrightness(request.brightness());
+    if (request.brightness() != null && request.brightness().isPresent()) {
+      settings.setBrightness(request.brightness().get());
     }
 
-    if (request.color() != null) {
-      settings.setColor(request.color());
+    if (request.color() != null && request.color().isPresent()) {
+      settings.setColor(request.color().get());
     }
 
     settings = settingsRepository.saveAndFlush(settings);

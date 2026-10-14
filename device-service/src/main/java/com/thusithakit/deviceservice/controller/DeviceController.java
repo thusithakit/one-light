@@ -100,12 +100,11 @@ public class DeviceController {
 
     @PatchMapping("/{deviceId}/light")
     public ResponseEntity<?> update(
-        @RequestHeader("X-User-Id") UUID ownerId,
         @PathVariable UUID deviceId,
         @Valid @RequestBody LightSettingsRequestDTO request
     ) {
         LightSettingsService.UpdateResult result =
-            lightSettingsService.update(ownerId, deviceId, request);
+            lightSettingsService.update(deviceId, request);
 
         HttpStatus status = result.mqttPublished()
             ? HttpStatus.OK
