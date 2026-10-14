@@ -3,6 +3,7 @@ package com.thusithakit.deviceservice.controller;
 import com.thusithakit.deviceservice.dto.*;
 import com.thusithakit.deviceservice.repository.DeviceRepository;
 import com.thusithakit.deviceservice.service.DeviceService;
+import com.thusithakit.deviceservice.service.LightSettingsService;
 import com.thusithakit.deviceservice.service.PairingService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -17,10 +19,12 @@ import java.util.UUID;
 public class DeviceController {
     private final DeviceService deviceService;
     private final PairingService pairingService;
+    private final LightSettingsService lightSettingsService;
 
-    public DeviceController(DeviceService deviceService, PairingService pairingService) {
+    public DeviceController(DeviceService deviceService, PairingService pairingService, LightSettingsService lightSettingsService) {
         this.deviceService = deviceService;
         this.pairingService = pairingService;
+        this.lightSettingsService = lightSettingsService;
     }
 
     @GetMapping
@@ -86,4 +90,34 @@ public class DeviceController {
 
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/{deviceId}/light")
+    public LightSettingsResponseDTO get(
+        @PathVariable UUID deviceId
+    ) {
+        return lightSettingsService.get(deviceId);
+    }
+
+    @PatchMapping("/{deviceId}/light")
+    public ResponseEntity<?> update(
+        @RequestHeader("X-User-Id") UUID ownerId,
+        @PathVariable UUID deviceId,
+        @Valid @RequestBody LightSettingsRequestDTO request
+    ) {
+        LightSettingsService.UpdateResult result =
+            lightSettingsService.update(ownerId, deviceId, request);
+
+        HttpStatus status = result.mqttPublished()
+            ? HttpStatus.OK
+            : HttpStatus.ACCEPTED;
+
+        return ResponseEntity.status(status).body(Map.of(
+            "settings", result.settings(),
+            "mqttPublished", result.mqttPublished(),
+            "message", result.mqttPublished()
+                ? "Settings saved and MQTT command published"
+                : "Settings saved, but MQTT publication failed"
+        ));
+    }
+
 }

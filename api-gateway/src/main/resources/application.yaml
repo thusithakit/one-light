@@ -20,6 +20,12 @@ spring:
               filters:
                 - JwtValidation
 
+            - id: public-light-state
+              uri: http://device-service:4002
+              predicates:
+                - Path=/api/v1/devices/{deviceId}/light
+                - Method=GET
+
             - id: device-provisioning
               uri: http://device-service:4002
               predicates:

@@ -1,0 +1,9 @@
+PATCH localhost:8080/api/v1/devices/8a6ee7e7-f0c1-4630-bc94-0bab0382fecf/light
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "brightness": 1,
+  "on": false,
+  "color": "#ffffff"
+}

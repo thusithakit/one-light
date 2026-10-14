@@ -9,7 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="api-gateway" />
       </profile>
-      <profile name="Annotation profile for delivery-service" enabled="true">
+      <profile name="Annotation profile for device-service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -20,8 +20,8 @@
         <module name="auth-service" />
         <module name="circle-service" />
         <module name="user-service" />
-        <module name="message-service" />
         <module name="device-service" />
+        <module name="message-service" />
       </profile>
     </annotationProcessing>
   </component>
