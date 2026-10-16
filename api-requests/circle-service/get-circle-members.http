@@ -1,0 +1,3 @@
+GET http://localhost:8080/api/v1/circles/01732559-a98b-4527-91e1-78e5fe816cb7/members
+Authorization: Bearer {{token}}
+

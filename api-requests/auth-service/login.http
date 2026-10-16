@@ -2,7 +2,7 @@ POST http://192.168.8.146:8080/api/v1/auth/login
 Content-Type: application/json
 
 {
-  "email": "kong@example.com",
+  "email": "thusitha@example.com",
   "password": "Password123!"
 }
 > {%
